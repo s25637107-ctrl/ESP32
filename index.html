@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>極簡數位時鐘</title>
+    <style>
+        /* 設定背景與置中 */
+        body {
+            background-color: #0f0f0f; /* 深色背景 */
+            color: #ffffff;           /* 白色文字 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* 日期樣式 */
+        #date {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        /* 時間樣式 (超大字體) */
+        #clock {
+            font-size: 8rem;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+        }
+
+        /* 手機適應性調整 */
+        @media (max-width: 600px) {
+            #clock { font-size: 4rem; }
+            #date { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="date">YYYY/MM/DD</div>
+    <div id="clock">00:00:00</div>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            
+            // 格式化日期
+            const y = now.getFullYear();
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const d = String(now.getDate()).padStart(2, '0');
+            const days = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            const dayName = days[now.getDay()];
+
+            // 格式化時間
+            const hh = String(now.getHours()).padStart(2, '0');
+            const mm = String(now.getMinutes()).padStart(2, '0');
+            const ss = String(now.getSeconds()).padStart(2, '0');
+
+            // 寫入網頁
+            document.getElementById('date').innerText = `${y}年${m}月${d}日 ${dayName}`;
+            document.getElementById('clock').innerText = `${hh}:${mm}:${ss}`;
+        }
+
+        // 每秒更新一次
+        setInterval(updateTime, 1000);
+        updateTime(); // 初始執行一次避免空白
+    </script>
+</body>
+</html>
